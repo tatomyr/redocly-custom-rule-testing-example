@@ -1,0 +1,17 @@
+{
+  "name": "jest-openapi-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lint.test.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  },
+  "dependencies": {
+    "@redocly/openapi-core": "^1.0.0-beta.113"
+  }
+}

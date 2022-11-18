@@ -1,0 +1,87 @@
+openapi: 3.1.0
+
+info:
+  version: 1.0.0
+  title: Test API
+
+paths:
+  /items:
+    post:
+      operationId: createItem
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/item"
+            examples:
+              "200":
+                $ref: "#/components/examples/item"
+
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/item"
+              examples:
+                "200":
+                  $ref: "#/components/examples/item"
+        "403":
+          description: Forbidden
+
+    get:
+      operationId: readItemList
+
+      parameters:
+        - name: contentId
+          in: query
+          schema:
+            type: string
+          examples:
+            200:
+              value: index-page
+            404:
+              value: non-existing-item
+
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/item-with-id"
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+
+components:
+  schemas:
+    item:
+      type: object
+      properties:
+        contentId:
+          type: string
+        userId:
+          type: string
+    item-with-id:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        item:
+          $ref: "#/components/schemas/item"
+  examples:
+    item:
+      value:
+        contentId: index-page
+    item-with-id:
+      value:
+        id: test-id
+        item:
+          contentId: index-page

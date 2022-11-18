@@ -1,0 +1,4 @@
+extends:
+  - my-plugin/custom
+plugins:
+  - ./plugin.js
