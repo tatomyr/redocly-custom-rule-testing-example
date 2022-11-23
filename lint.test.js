@@ -12,11 +12,11 @@ test("lint", async () => {
     ref: "./fixtures/openapi.yaml",
     config: await loadConfig({ configPath: "./fixtures/redocly.yaml" }),
   });
-  expect(problems.length).toEqual(2);
+  expect(problems.length).toEqual(1);
   expect(problems[0].ruleId).toEqual(
     "my-plugin/consistent-examples-for-responses"
   );
   expect(problems[0].location[0].pointer).toEqual(
-    "#/paths/~1items/get/parameters/0/examples"
+    "#/paths/~1items/post/requestBody/content/application~1json/examples"
   );
 });
