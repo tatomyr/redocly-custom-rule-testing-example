@@ -1,10 +1,36 @@
 openapi: 3.1.0
 
 info:
-  version: 1.0.0
+  version: 1.1.0
   title: Test API
 
 paths:
+  /items/{id}:
+    get:
+      operationId: readItem
+
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          examples:
+            200:
+              value: $responses['post@/items'].200.id
+            404:
+              value: wrong-id
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/item-with-id"
+
+        404:
+          description: Not found
+
   /items:
     post:
       operationId: createItem
@@ -24,26 +50,35 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/item"
-              examples:
-                "200":
-                  $ref: "#/components/examples/item"
-        "403":
-          description: Forbidden
+                $ref: "#/components/schemas/item-with-id"
+        400:
+          description: Wrong request
 
     get:
       operationId: readItemList
+      
+      x-test: 
+        $ref: file.js
 
       parameters:
-        - name: contentId
+        - name: user-id
           in: query
           schema:
             type: string
           examples:
             200:
-              value: index-page
-            404:
-              value: non-existing-item
+              value: test-user
+            403:
+              value: test-user
+        - name: auth-token
+          in: header
+          schema:
+            type: string
+          examples:
+            200:
+              value: $secrets.AUTH_TOKEN
+            403:
+              value: wrong-token
 
       responses:
         "200":
@@ -56,32 +91,30 @@ paths:
                   $ref: "#/components/schemas/item-with-id"
         "403":
           description: Forbidden
-        "404":
-          description: Not found
 
 components:
   schemas:
     item:
       type: object
       properties:
-        contentId:
+        user-id:
           type: string
-        userId:
+        note:
           type: string
+      required: 
+        - user-id
+        - note
     item-with-id:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        item:
+        value:
           $ref: "#/components/schemas/item"
+
   examples:
     item:
       value:
-        contentId: index-page
-    item-with-id:
-      value:
-        id: test-id
-        item:
-          contentId: index-page
+        user-id: test-user
+        note: Some text
