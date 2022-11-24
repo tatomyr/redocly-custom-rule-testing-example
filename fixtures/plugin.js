@@ -23,7 +23,7 @@ const rules = {
                 for (const code in responses) {
                   if (!mediaType.examples[code]) {
                     report({
-                      message: `Request examples do not contain the ${code} response example.`,
+                      message: `Request examples do not contain a ${code} response example.`,
                       location: location.child('examples'),
                     });
                   }
@@ -44,7 +44,7 @@ const rules = {
               for (const code in responses) {
                 if (!parameter.examples[code]) {
                   report({
-                    message: `Parameter examples do not contain the ${code} response example.`,
+                    message: `Parameter examples do not contain a ${code} response example.`,
                     location: location.child('examples'),
                   });
                 }

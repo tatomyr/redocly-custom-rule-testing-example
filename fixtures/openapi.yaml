@@ -7,7 +7,7 @@ info:
 paths:
   /items/{id}:
     get:
-      operationId: readItem
+      operationId: readItemById
 
       parameters:
         - name: id

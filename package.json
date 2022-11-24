@@ -5,7 +5,8 @@
   "main": "lint.test.js",
   "scripts": {
     "test": "jest",
-    "lint": "redocly lint fixtures/openapi.yaml --config fixtures/redocly.yaml --format stylish"
+    "lint": "redocly lint fixtures/openapi.yaml --config fixtures/redocly.yaml --format stylish",
+    "preview": "redocly preview-docs ./fixtures/openapi.yaml"
   },
   "author": "",
   "license": "ISC",
